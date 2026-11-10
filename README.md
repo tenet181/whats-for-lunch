@@ -340,4 +340,4 @@ curl 'http://127.0.0.1:8787/api/geo/estimate?lat=30.49&lng=104.057786'
 
 ## 许可
 
-内部工具，未指定开源许可。
+[MIT](LICENSE) © 2026 tenet181
