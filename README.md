@@ -53,7 +53,7 @@
 ### 步骤
 
 ```bash
-git clone https://github.com/LukaMagic0077/whats-for-lunch.git
+git clone https://github.com/tenet181/whats-for-lunch.git
 cd whats-for-lunch/app
 
 npm install
