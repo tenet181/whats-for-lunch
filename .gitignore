@@ -1,0 +1,19 @@
+# 依赖与构建产物
+node_modules/
+dist/
+*.local
+
+# 本地数据与密钥（务必不要提交）
+.env
+.env.local
+app/.env
+app/server/data/db.json
+app/server/data/*.tmp
+
+# 工具与临时文件
+.tools/
+.dumps/
+*.log
+
+# 原始压缩包
+*.zip

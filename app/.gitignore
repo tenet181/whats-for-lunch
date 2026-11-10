@@ -1,0 +1,8 @@
+node_modules
+.env
+.env.local
+dist
+*.local
+server/data/db.json
+server/data/db.json.tmp
+server/data/*.tmp

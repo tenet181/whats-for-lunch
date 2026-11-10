@@ -1,0 +1,132 @@
+<view class="page">
+  <!-- 顶部 -->
+  <view class="header">
+    <view class="title">中午吃什么</view>
+    <view class="subtitle">麓坊中心 · 15分钟车程 · {{restaurants.length}}家老店与下饭菜</view>
+    <view class="tabs">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="*this"
+        class="tab {{tab === item ? 'tab-active' : ''}}"
+        bindtap="switchTab"
+        data-tab="{{item}}"
+      >{{item === '抽一家' ? '🎲 抽一家' : item}}</view>
+    </view>
+  </view>
+
+  <!-- 地图 -->
+  <block wx:if="{{tab === '地图'}}">
+    <view class="map-card">
+      <view class="map-canvas">
+        <!-- 中心点 -->
+        <view class="center-dot" style="left: {{(center.x / 680 * 100) + '%'}}; top: {{(center.y / 340 * 100) + '%'}}">
+          <view class="center-pulse"></view>
+          <view class="center-label">麓坊中心</view>
+        </view>
+        <!-- 餐厅点位 -->
+        <view
+          wx:for="{{restaurants}}"
+          wx:key="id"
+          class="dot {{item.far ? 'dot-far' : ''}}"
+          style="left: {{item.left}}; top: {{item.top}}"
+          bindtap="openDetail"
+          data-id="{{item.id}}"
+        >
+          <view class="dot-num">{{item.id}}</view>
+          <view class="dot-label">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="legend">
+      <view class="legend-item"><view class="legend-dot legend-solid"></view>15分钟圈内</view>
+      <view class="legend-item"><view class="legend-dot legend-hollow"></view>略远，顺路可去</view>
+      <view class="legend-item">点圆点看详情</view>
+    </view>
+    <view class="alert">
+      正兴片区拆迁中：2号张血旺、3号小平肥肠粉、4号耙泥鳅去之前请在大众点评确认最新地址。
+    </view>
+  </block>
+
+  <!-- 列表 -->
+  <block wx:if="{{tab === '列表'}}">
+    <scroll-view scroll-x class="filter-scroll" enhanced show-scrollbar="{{false}}">
+      <view class="filter-row">
+        <view
+          wx:for="{{filters}}"
+          wx:key="*this"
+          class="filter-chip {{filter === item ? 'filter-active' : ''}}"
+          bindtap="switchFilter"
+          data-f="{{item}}"
+        >{{item}}</view>
+      </view>
+    </scroll-view>
+
+    <view class="list">
+      <view
+        wx:for="{{filtered}}"
+        wx:key="id"
+        class="card"
+        bindtap="openDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="card-head">
+          <view class="card-id {{item.far ? 'card-id-far' : ''}}">{{item.id}}</view>
+          <view class="card-name">{{item.name}}</view>
+          <text wx:if="{{item.alert}}" class="card-warn">⚠️</text>
+        </view>
+        <view class="card-tags">
+          <view wx:for="{{item.sig3}}" wx:for-item="s" wx:key="*this" class="tag">{{s}}</view>
+        </view>
+        <view class="card-meta">{{item.dirLabel}} · {{item.driveTime}} · {{item.address}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 抽一家 -->
+  <block wx:if="{{tab === '抽一家'}}">
+    <view class="picker">
+      <view class="picker-tip">选择困难？让缘分决定今天中午吃啥</view>
+      <view class="picker-box">
+        <block wx:if="{{current}}">
+          <view class="picker-name {{winner ? 'picker-winner' : ''}}">{{current.name}}</view>
+          <view wx:if="{{winner}}" class="picker-sig">{{winner.sig3.join(' · ')}}</view>
+        </block>
+        <view wx:else class="picker-emoji">🍚</view>
+      </view>
+      <button class="picker-btn" bindtap="roll" disabled="{{rolling}}">
+        {{rolling ? '挑选中…' : (winner ? '不满意，再抽一次' : '今天吃啥？抽一家')}}
+      </button>
+      <view wx:if="{{winner}}" class="picker-count">从 15 分钟圈内的 {{nearCount}} 家里随机抽选</view>
+    </view>
+  </block>
+
+  <!-- 详情弹层 -->
+  <view wx:if="{{selected}}" class="sheet-mask" bindtap="closeDetail">
+    <view class="sheet" catchtap="stopProp">
+      <view class="sheet-grip"></view>
+      <view class="sheet-head">
+        <view class="sheet-id">{{selected.id}}</view>
+        <view class="sheet-name">{{selected.name}}</view>
+      </view>
+      <view class="sheet-drive">车程 {{selected.driveTime}}</view>
+
+      <view class="sheet-addr {{copied ? 'sheet-addr-copied' : ''}}" bindtap="copyAddress">
+        <view class="sheet-addr-text">📍 {{selected.address}}</view>
+        <view class="sheet-addr-btn">{{copied ? '✓ 已复制' : '复制地址'}}</view>
+      </view>
+
+      <view class="sheet-tags">
+        <view wx:for="{{selected.signature}}" wx:key="*this" class="tag tag-big">{{item}}</view>
+      </view>
+
+      <view class="sheet-note">{{selected.note}}</view>
+
+      <view wx:if="{{selected.alert}}" class="sheet-alert">⚠️ {{selected.alert}}</view>
+
+      <view class="sheet-actions">
+        <button class="btn btn-dark" bindtap="closeDetail">知道了</button>
+        <button wx:if="{{selected.dp}}" class="btn btn-dp" bindtap="openDianping">大众点评</button>
+      </view>
+    </view>
+  </view>
+</view>

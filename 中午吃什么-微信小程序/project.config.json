@@ -1,0 +1,14 @@
+{
+  "description": "中午吃什么 · 麓坊午餐地图",
+  "appid": "touristappid",
+  "compileType": "miniprogram",
+  "libVersion": "3.8.0",
+  "projectname": "lufang-lunch",
+  "setting": {
+    "es6": true,
+    "minified": true,
+    "postcss": true,
+    "urlCheck": false
+  },
+  "packOptions": { "ignore": [], "include": [] }
+}
