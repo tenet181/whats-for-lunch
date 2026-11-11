@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "whats-for-lunch",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev.mjs",
@@ -83,5 +83,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
-  }
+  },
+  "description": "麓坊中心午餐地图：报馆子填报 + 后台审核上架的 H5 应用",
+  "license": "MIT"
 }
