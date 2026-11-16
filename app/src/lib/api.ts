@@ -1,3 +1,5 @@
+import { demoApi } from '@/demo/demoApi';
+import { ApiError } from '@/lib/apiError';
 import type {
   AdminStats,
   AdminUser,
@@ -12,6 +14,8 @@ import type {
   SubmitPayload,
 } from '@/types';
 
+export { ApiError };
+
 interface Envelope<T> {
   ok: true;
   data: T;
@@ -20,20 +24,6 @@ interface Envelope<T> {
 interface ErrorEnvelope {
   ok: false;
   error: { code: string; message: string; fields?: Record<string, string> };
-}
-
-export class ApiError extends Error {
-  status: number;
-  code: string;
-  fields?: Record<string, string>;
-
-  constructor(status: number, code: string, message: string, fields?: Record<string, string>) {
-    super(message);
-    this.name = 'ApiError';
-    this.status = status;
-    this.code = code;
-    this.fields = fields;
-  }
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -69,7 +59,7 @@ function patchBody(body: unknown): RequestInit {
   return { method: 'PATCH', body: JSON.stringify(body ?? {}) };
 }
 
-export const api = {
+const httpApi = {
   listRestaurants: () => request<Restaurant[]>('/api/restaurants'),
 
   submit: (payload: SubmitPayload) => request<{ code: string; id: string }>('/api/submissions', jsonBody(payload)),
@@ -173,3 +163,8 @@ export function errorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
   return '未知错误，请稍后再试';
 }
+
+/** 演示模式：`vite build --mode demo`（见 app/.env.demo）时把 /api 换成前端实现。 */
+export const DEMO_MODE = import.meta.env.VITE_DEMO === '1';
+
+export const api: typeof httpApi = DEMO_MODE ? (demoApi as unknown as typeof httpApi) : httpApi;

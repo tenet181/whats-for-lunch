@@ -73,3 +73,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 演示版（GitHub Pages）固定底栏的占位 */
+body.demo-mode {
+  padding-bottom: 2.5rem;
+}

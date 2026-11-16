@@ -4,8 +4,9 @@ import { defineConfig } from "vite"
 import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/',
+// demo 模式用于 GitHub Pages：静态托管在 /whats-for-lunch/ 子路径下。
+export default defineConfig(({ mode }) => ({
+  base: mode === 'demo' ? '/whats-for-lunch/' : '/',
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,
@@ -21,4 +22,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-});
+}));

@@ -1,5 +1,8 @@
 # 中午吃什么 · 麓坊中心午餐地图
 
+> 🔗 **在线预览（演示版）**：<https://tenet181.github.io/whats-for-lunch/> —— 不用装任何东西，手机也能直接点开。
+> 演示版把店铺数据打包在前端、填报记录存在浏览器本地，**不含后台审核**；完整功能见下方「安装方法」。
+
 一个「办公室中午吃啥」的小工具：把公司周边 15 分钟车程内的馆子收进一张地图，**同事可以随手报新店，管理员在后台审一遍再上架**，避免踩坑也避免选择困难。
 
 ## 1. 解决什么问题
@@ -91,7 +94,9 @@ npm run dev
 | `npm run dev:web` / `npm run dev:server` | 只起其中一个 |
 | `npm test` | 跑后端测试（37 个） |
 | `npm run build` | 类型检查 + 构建前端到 `dist/` |
+| `npm run build:demo` | 构建**演示版**（`--mode demo`：店铺数据打包进前端、填报存 localStorage），产物在 `dist/`，用于 GitHub Pages |
 | `npm start` | 生产模式：单端口同时提供页面和 API |
+| `npm run share` | 生产模式 + Cloudflare 临时公网链接，把填报页发给不在同一网络的人（先 `npm run build`；进程一停链接失效，重启会换新域名） |
 
 ### 环境变量
 

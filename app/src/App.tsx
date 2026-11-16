@@ -6,6 +6,8 @@ import StatusPage from '@/pages/StatusPage';
 import LoginPage from '@/pages/admin/LoginPage';
 import AdminPage from '@/pages/admin/AdminPage';
 import { RequireAdmin } from '@/components/RequireAdmin';
+import { DemoBanner } from '@/components/DemoBanner';
+import { DEMO_MODE } from '@/lib/api';
 
 function NotFoundPage() {
   return (
@@ -20,16 +22,19 @@ function NotFoundPage() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/submit" element={<SubmitPage />} />
-      <Route path="/status" element={<StatusPage />} />
-      <Route path="/status/:code" element={<StatusPage />} />
-      <Route path="/admin/login" element={<LoginPage />} />
-      <Route path="/admin" element={<RequireAdmin />}>
-        <Route index element={<AdminPage />} />
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/submit" element={<SubmitPage />} />
+        <Route path="/status" element={<StatusPage />} />
+        <Route path="/status/:code" element={<StatusPage />} />
+        <Route path="/admin/login" element={<LoginPage />} />
+        <Route path="/admin" element={<RequireAdmin />}>
+          <Route index element={<AdminPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      {DEMO_MODE ? <DemoBanner /> : null}
+    </>
   );
 }
