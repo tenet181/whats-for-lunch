@@ -95,6 +95,7 @@ npm run dev
 | `npm test` | 跑后端测试（37 个） |
 | `npm run build` | 类型检查 + 构建前端到 `dist/` |
 | `npm run build:demo` | 构建**演示版**（`--mode demo`：店铺数据打包进前端、填报存 localStorage），产物在 `dist/`，用于 GitHub Pages |
+| `npm run deploy:demo` | 构建演示版并强推 `gh-pages` 分支，约 1 分钟后 https://tenet181.github.io/whats-for-lunch/ 生效 |
 | `npm start` | 生产模式：单端口同时提供页面和 API |
 | `npm run share` | 生产模式 + Cloudflare 临时公网链接，把填报页发给不在同一网络的人（先 `npm run build`；进程一停链接失效，重启会换新域名） |
 

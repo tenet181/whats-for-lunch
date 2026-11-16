@@ -9,6 +9,7 @@
     "dev:server": "node --watch server/index.js",
     "build": "tsc -b && vite build",
     "build:demo": "tsc -b && vite build --mode demo && node scripts/spa-fallback.mjs",
+    "deploy:demo": "node scripts/deploy-demo.mjs",
     "start": "node server/index.js",
     "test": "node scripts/test.mjs",
     "lint": "eslint .",
